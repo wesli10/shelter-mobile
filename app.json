@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "app-chat",
-    "slug": "app-chat",
+    "slug": "shelter-app",
+    "scheme": "shelter-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +24,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f20a3ef9-5af9-495d-86e3-f51da72dcb93"
+      }
+    },
+    "owner": "wesli10"
   }
 }
