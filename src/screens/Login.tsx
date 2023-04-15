@@ -3,7 +3,6 @@ import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { Logo } from "../components/Logo";
 import * as AuthSession from "expo-auth-session";
-import { UserProps } from "../components/Header";
 import { useState } from "react";
 
 type AuthResponse = {
@@ -14,6 +13,13 @@ type AuthResponse = {
   type: string;
 };
 
+type UserProps = {
+  id: string;
+  avatar: string;
+  discriminator: string;
+  username: string;
+};
+
 export function Login() {
   const { navigate } = useNavigation();
 
@@ -21,7 +27,7 @@ export function Login() {
     try {
       const client_id = "1090401757378654358";
       const redirect_uri = "https://auth.expo.io/@wesli10/shelter-app";
-      const authUrl = `https://discord.com/oauth2/authorize?response_type=token&client_id=${client_id}&scope=identify%20%20guilds%20guilds.join&state=15773059ghq9183habn&redirect_uri=${redirect_uri}&prompt=consent`;
+      const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&scope=identify`;
 
       const { type, params } = (await AuthSession.startAsync({
         authUrl,
@@ -36,20 +42,11 @@ export function Login() {
 
         const user: UserProps = await response.json();
 
-        const list = await fetch("https://discord.com/api/users/@me/guilds", {
-          headers: {
-            Authorization: `Bearer ${params.access_token}`,
-          },
-        });
-
-        const guilds: [] = await list.json();
-
         navigate("home", {
           id: user.id,
           avatar: user.avatar,
           discriminator: user.discriminator,
           username: user.username,
-          guilds: guilds,
         });
       }
     } catch (error) {

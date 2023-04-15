@@ -7,8 +7,8 @@ export declare global {
         username: string;
         avatar: string;
         discriminator: string;
-        guilds: Array;
       };
+      forca: undefined;
     }
   }
 }

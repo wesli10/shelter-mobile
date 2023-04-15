@@ -4,6 +4,7 @@ const { Navigator, Screen } = createNativeStackNavigator();
 
 import { Login } from "../screens/Login";
 import { Home } from "../screens/Home";
+import { Forca } from "../screens/games/Forca";
 
 export function AppRoutes() {
   return (
@@ -11,6 +12,8 @@ export function AppRoutes() {
       <Screen name="login" component={Login} />
 
       <Screen name="home" component={Home} />
+
+      <Screen name="forca" component={Forca} />
     </Navigator>
   );
 }

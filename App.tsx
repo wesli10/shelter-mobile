@@ -5,6 +5,7 @@ import {
   Inter_700Bold,
   Inter_800ExtraBold,
 } from "@expo-google-fonts/inter";
+import "react-native-url-polyfill/auto";
 import { StatusBar } from "react-native";
 
 import { Loading } from "./src/components/Loading";

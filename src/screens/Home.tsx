@@ -1,7 +1,14 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { Header } from "../components/Header";
-import { ListGuilds } from "../components/ListGuilds";
+import { Configuration, OpenAIApi } from "openai";
+import { useCallback } from "react";
+import { OPENAI_API_KEY } from "@env";
+import { GamesButton } from "../components/GamesButton";
 
 interface Params {
   id: string;
@@ -9,13 +16,13 @@ interface Params {
   avatar: string;
   discriminator: string;
   guilds: Array<String>;
+  access_token: string;
 }
 
 export function Home() {
   const { navigate } = useNavigation();
   const route = useRoute();
-  const { username, avatar, id, discriminator, guilds } =
-    route.params as Params;
+  const { username, avatar, id, discriminator } = route.params as Params;
   const user = {
     id: id,
     username: username,
@@ -29,8 +36,8 @@ export function Home() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
       >
-        <Header user={user} />
-        <ListGuilds guilds={guilds} />
+        <Header title="Jogos" />
+        <GamesButton />
       </ScrollView>
     </View>
   );
