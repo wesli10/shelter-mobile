@@ -9,6 +9,11 @@ export declare global {
         discriminator: string;
       };
       forca: undefined;
+      wordForm: undefined;
+      loserScene: {
+        word: string;
+      };
+      winnerScene: undefined;
     }
   }
 }
