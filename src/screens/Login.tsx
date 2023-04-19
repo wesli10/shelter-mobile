@@ -3,7 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { Logo } from "../components/Logo";
 import * as AuthSession from "expo-auth-session";
-import { CLIENT_ID, REDIRECT_URI } from "@env";
+import { DISCORD_CLIENT_ID, REDIRECT_URI } from "@env";
 
 type AuthResponse = {
   params: {
@@ -25,7 +25,7 @@ export function Login() {
 
   async function handleDiscordLogin() {
     try {
-      const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
+      const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
       const { type, params } = (await AuthSession.startAsync({
         authUrl,
       })) as AuthResponse;

@@ -9,19 +9,25 @@ import clsx from "clsx";
 import { removeAcento } from "../../utils/utils";
 import { words } from "../../utils/words";
 
+interface GameState {
+  word: string;
+  guessedLetters: string[];
+}
+
 export function Forca() {
-  const [word, setWord] = useState<string>("");
+  const [gameState, setGameState] = useState<GameState>({
+    word: "",
+    guessedLetters: [],
+  });
   const { navigate } = useNavigation();
-  const [guessedLetters, setGuesseLetters] = useState<string[]>([]);
-  const incorrectGuesses = guessedLetters.filter(
-    (letter) => !word.includes(letter)
-  );
 
   async function getWord() {
     const selectedWord = words[Math.floor(Math.random() * words.length)];
-
     const formatedString = removeAcento(selectedWord);
-    setWord(formatedString.toLocaleUpperCase());
+    setGameState((prevState) => ({
+      ...prevState,
+      word: formatedString.toLocaleUpperCase(),
+    }));
   }
 
   useFocusEffect(
@@ -30,44 +36,49 @@ export function Forca() {
     }, [])
   );
 
-  function addGuesseLetters(letter: string) {
-    if (guessedLetters.includes(letter)) return;
+  function handleClick(letter: string) {
+    if (gameState.guessedLetters.includes(letter)) {
+      return;
+    }
 
-    setGuesseLetters((guessedLetters) => [...guessedLetters, letter]);
+    setGameState((prevState) => ({
+      ...prevState,
+      guessedLetters: [...prevState.guessedLetters, letter],
+    }));
   }
 
-  function handleClick(lettler: string) {
-    const key = lettler;
-
-    if (!key.match(/^[A-Z]$/)) return;
-
-    addGuesseLetters(key);
-  }
+  const incorrectGuesses = gameState.guessedLetters.filter(
+    (letter) => !gameState.word.includes(letter)
+  );
 
   const isLoser = incorrectGuesses.length >= 6;
   const isWinner =
-    word !== "" &&
-    word.split("").every((letter) => guessedLetters.includes(letter));
-  console.log(word);
+    gameState.word !== "" &&
+    gameState.word
+      .split("")
+      .every((letter) => gameState.guessedLetters.includes(letter));
 
-  if (isLoser) {
-    setWord("");
-    setGuesseLetters([]);
-    navigate("loserScene", { word: word });
-  }
+  useEffect(() => {
+    if (isLoser) {
+      setGameState({ word: "", guessedLetters: [] });
+      navigate("loserScene", { word: gameState.word });
+    }
 
-  if (isWinner) {
-    setWord("");
-    setGuesseLetters([]);
-    navigate("winnerScene");
-  }
+    if (isWinner) {
+      setGameState({ word: "", guessedLetters: [] });
+      navigate("winnerScene");
+    }
+  }, [isLoser, isWinner]);
 
   return (
     <View className="flex-1 bg-background px-8 pt-16">
       <Header title="Jogo da Forca" />
       <View className="mt-14">
         <GallowsMan numberOfGuesses={incorrectGuesses.length} />
-        <GallowsWord guessedLetters={guessedLetters} word={word} />
+        <GallowsWord
+          guessedLetters={gameState.guessedLetters}
+          word={gameState.word}
+        />
         <View className="flex flex-wrap flex-row items-center gap-3 mt-16 justify-center ">
           {Keys.map((letter) => (
             <TouchableOpacity
@@ -75,14 +86,15 @@ export function Forca() {
               className={clsx(
                 "border-2 border-violet-500 rounded-md w-10 h-10",
                 {
-                  ["border-zinc-700"]: guessedLetters.includes(letter),
+                  ["border-zinc-700"]:
+                    gameState.guessedLetters.includes(letter),
                 }
               )}
               onPress={() => handleClick(letter)}
             >
               <Text
                 className={clsx("text-lg color-white text-center font-bold ", {
-                  ["color-zinc-700"]: guessedLetters.includes(letter),
+                  ["color-zinc-700"]: gameState.guessedLetters.includes(letter),
                 })}
                 key={letter}
               >
