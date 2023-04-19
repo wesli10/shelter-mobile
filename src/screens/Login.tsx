@@ -3,7 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { Logo } from "../components/Logo";
 import * as AuthSession from "expo-auth-session";
-import { useState } from "react";
+import { CLIENT_ID, REDIRECT_URI } from "@env";
 
 type AuthResponse = {
   params: {
@@ -25,10 +25,7 @@ export function Login() {
 
   async function handleDiscordLogin() {
     try {
-      const client_id = "1090401757378654358";
-      const redirect_uri = "https://auth.expo.io/@wesli10/shelter-app";
-      const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&scope=identify`;
-
+      const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
       const { type, params } = (await AuthSession.startAsync({
         authUrl,
       })) as AuthResponse;
