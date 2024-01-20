@@ -7,8 +7,7 @@ import { DISCORD_CLIENT_ID, REDIRECT_URI } from "@env";
 
 type AuthResponse = {
   params: {
-    access_token: string;
-    token_type: string;
+    code: string;
   };
   type: string;
 };
@@ -31,13 +30,18 @@ export function Login() {
       })) as AuthResponse;
 
       if (type === "success") {
+        console.log(params.code);
         const response = await fetch("https://discord.com/api/users/@me", {
           headers: {
-            Authorization: `Bearer ${params.access_token}`,
+            Authorization: `Bearer ${params.code}`,
           },
+        }).catch((error) => {
+          console.log(error);
         });
 
         const user: UserProps = await response.json();
+
+        console.log(user);
 
         navigate("home", {
           id: user.id,

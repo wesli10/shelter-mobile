@@ -1,13 +1,6 @@
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Header } from "../components/Header";
-import { Configuration, OpenAIApi } from "openai";
-import { useCallback } from "react";
-import { OPENAI_API_KEY } from "@env";
 import { GamesButton } from "../components/GamesButton";
 
 interface Params {
@@ -30,13 +23,15 @@ export function Home() {
     discriminator: discriminator,
   };
 
+  console.log(user.avatar);
+
   return (
     <View className="flex-1 bg-background px-8 pt-16">
       <ScrollView
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
       >
-        <Header title="Jogos" />
+        <Header userAvatar={user.avatar} />
         <GamesButton />
       </ScrollView>
     </View>

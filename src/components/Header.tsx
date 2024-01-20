@@ -1,10 +1,11 @@
-import { View, Image, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, Image } from "react-native";
 import { BackButton } from "./BackButton";
 
 type Props = {
-  title: string;
+  userAvatar: string;
 };
-export function Header({ title }: Props) {
+export function Header({ userAvatar }: Props) {
+  console.log(userAvatar);
   return (
     <View className="w-full flex-row items-center ">
       <TouchableOpacity
@@ -13,9 +14,8 @@ export function Header({ title }: Props) {
       >
         <BackButton />
       </TouchableOpacity>
-      <Text className="text-zinc-200 text-2xl font-extrabold text-center flex-1 mr-6 justify-center">
-        {title}
-      </Text>
+      <Text>test</Text>
+      <Image source={{ uri: userAvatar }} />
     </View>
   );
 }

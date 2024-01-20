@@ -5,7 +5,7 @@ const { Navigator, Screen } = createNativeStackNavigator();
 import { Login } from "../screens/Login";
 import { Home } from "../screens/Home";
 import { Forca } from "../screens/games/Forca";
-import { WordForm } from "../screens/games/WordForm";
+import { JogoDaVeia } from "../screens/games/JogoDaVeia";
 import { LoserScene } from "../screens/feedbacks/LoserScene";
 import { WinnerScene } from "../screens/feedbacks/WinnerScene";
 
@@ -18,7 +18,7 @@ export function AppRoutes() {
 
       <Screen name="forca" component={Forca} />
 
-      <Screen name="wordForm" component={WordForm} />
+      <Screen name="jogodaveia" component={JogoDaVeia} />
 
       <Screen name="loserScene" component={LoserScene} />
 

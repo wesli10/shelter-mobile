@@ -72,7 +72,6 @@ export function Forca() {
 
   return (
     <View className="flex-1 bg-background px-8 pt-16">
-      <Header title="Jogo da Forca" />
       <View className="mt-14">
         <GallowsMan numberOfGuesses={incorrectGuesses.length} />
         <GallowsWord

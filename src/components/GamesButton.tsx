@@ -20,7 +20,20 @@ export function GamesButton({ ...rest }: TouchableHighlightProps) {
         onPress={() => navigate("forca")}
         {...rest}
       >
-        <Text className="text-white font-extrabold text-2xl ">Forca</Text>
+        <Text className="text-white font-extrabold text-2xl ">
+          Jogo da Forca
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        className="flex items-center justify-center mt-12 border-2 border-violet-300 h-16 w-full rounded-lg flex-row"
+        activeOpacity={0.6}
+        onPress={() => navigate("jogodaveia")}
+        {...rest}
+      >
+        <Text className="text-white font-extrabold text-2xl ">
+          Jogo da Véia
+        </Text>
       </TouchableOpacity>
     </View>
   );
